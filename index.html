@@ -22,16 +22,37 @@
       text-decoration: none;
       color: inherit;
     }
+
+    /* Mobile Header for Small Screens */
+    .mobile-header {
+      display: none;
+      background: #111;
+      padding: 10px 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .mobile-header button {
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
     /* Sidebar Table of Contents */
+    .toc {
+      background: #111;
+      padding: 20px;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+    }
+    /* Default sidebar for larger screens */
     .toc {
       position: fixed;
       top: 0;
       left: 0;
       width: 200px;
       height: 100vh;
-      background: #111;
-      padding: 20px;
-      overflow-y: auto;
     }
     .toc h2 {
       font-size: 1.2rem;
@@ -53,6 +74,17 @@
     .toc a:hover {
       color: #fff;
     }
+    /* Close button for mobile sidebar */
+    .toc .close-btn {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
     /* Main Content */
     .content {
       margin-left: 220px;
@@ -80,54 +112,78 @@
     p {
       margin-bottom: 1rem;
     }
-    /* Responsive */
+
+    /* Responsive Styles */
     @media (max-width: 768px) {
-      .toc {
-        position: relative;
-        width: 100%;
-        height: auto;
+      /* Show mobile header */
+      .mobile-header {
+        display: flex;
       }
+      /* Sidebar adjustments for mobile: start off-screen */
+      .toc {
+        position: fixed;
+        top: 0;
+        left: -250px; /* hidden by default */
+        width: 250px;
+        height: 100vh;
+        z-index: 1000;
+      }
+      /* When sidebar is open, add this class to slide it in */
+      .toc.open {
+        left: 0;
+      }
+      /* Show close button inside sidebar */
+      .toc .close-btn {
+        display: block;
+      }
+      /* Content takes full width on mobile */
       .content {
         margin-left: 0;
+        padding: 20px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Mobile Header (visible on small screens) -->
+  <header class="mobile-header">
+    <button id="menu-btn">&#9776; Menu</button>
+    <h1 style="font-size:1.2rem;">The Theory of Life</h1>
+  </header>
+
   <!-- Sidebar Table of Contents -->
-  <aside class="toc">
+  <aside class="toc" id="toc">
+    <button class="close-btn" id="close-btn">&times;</button>
     <h2>Contents</h2>
     <ul>
       <li><a href="#introduction">Introduction</a></li>
       <li><a href="#relationships">Relationships</a></li>
-      <li><a href="#money">Money & Material Wealth</a></li>
+      <li><a href="#money">Money &amp; Material Wealth</a></li>
       <li><a href="#personal-growth">Personal Growth</a></li>
       <li><a href="#society">Societal Dynamics</a></li>
       <li><a href="#conclusion">Conclusion</a></li>
     </ul>
   </aside>
 
- <!-- Main Content -->
-<div class="content">
-  <section id="introduction">
-    <header class="section-header">
-      <h1 class="main-title">The Theory of Life</h1>
-      <h2 class="section-title">Introduction: Every Action Has a Reaction</h2>
-    </header>
-    <article class="section-content">
-      <p>The famous law of physics, first introduced by Sir Isaac Newton, states that "for every action, there is an equal and opposite reaction." While this principle is fundamental in physics, it also holds deep meaning in the context of life itself. Every decision we make, every word we speak, and every action we take sets a chain of events into motion. The universe responds to us in ways we often fail to recognize, yet the principle remains true: life reacts to our actions.</p>
-      <p>Consider human relationships. If we treat others with kindness, respect, and understanding, we are far more likely to receive the same in return. On the other hand, if we act with aggression, dishonesty, or selfishness, the world eventually mirrors that negativity back to us. This is not some mystical force at work; rather, it is the natural consequence of human interaction and emotional energy.</p>
-      <p>Actions also shape our personal growth. If someone dedicates time and effort to learning a new skill, the reaction will be improvement and expertise. If someone neglects their responsibilities, the reaction will be missed opportunities or failure. This principle is at the heart of discipline, success, and progress. Nothing happens without cause; every achievement and every setback is the result of previous actions.</p>
-      <p>Even on a larger scale, societies function based on this principle. Acts of kindness create a more compassionate world, while acts of destruction bring about chaos. The way we treat our planet, our communities, and ourselves determines the future we will experience.</p>
-      <h3 class="subsection-title">The Role of Entropy: Limited Time, Limited Energy</h3>
-      <p>In addition to Newton's laws, another fundamental principle of the universe influences our lives: entropy. Entropy, in simple terms, is the natural tendency of systems to move toward disorder unless energy is applied to maintain structure. In our daily lives, this translates to the reality that without effort, things fall apart—relationships deteriorate, skills fade, and opportunities vanish.</p>
-      <p>Every day, we wake up with a limited amount of energy and time. This energy can be used productively—to learn, to create, to build relationships—or it can be wasted on distractions, negativity, or inaction. Just like in physics, if we do nothing, entropy takes over, and disorder creeps in. Our minds become cluttered, our bodies grow weaker, and our lives drift away from our goals.</p>
-      <p>Understanding entropy in life means recognizing the importance of intentional effort. If we do not actively invest in our well-being, our knowledge, or our relationships, they will naturally degrade. Growth requires continuous input; without it, the reaction is decline. This principle is why discipline is so crucial—without conscious direction, life tends toward disorder.</p>
-      <p>The Theory of Life begins here: Everything we do matters. The universe is not indifferent to our choices. The reactions we receive are a direct result of the actions we put forward. But beyond that, we must also be aware of the silent force of entropy—the reality that our time and energy are finite, and if we do not use them wisely, they will slip away. To change our lives, we must first change our actions, and to sustain those changes, we must resist the pull of entropy with deliberate effort every single day.</p>
-    </article>
-  </section>
-</div>
-
+  <!-- Main Content -->
+  <div class="content">
+    <section id="introduction">
+      <header class="section-header">
+        <h1 class="main-title">The Theory of Life</h1>
+        <h2 class="section-title">Introduction: Every Action Has a Reaction</h2>
+      </header>
+      <article class="section-content">
+        <p>The famous law of physics, first introduced by Sir Isaac Newton, states that "for every action, there is an equal and opposite reaction." While this principle is fundamental in physics, it also holds deep meaning in the context of life itself. Every decision we make, every word we speak, and every action we take sets a chain of events into motion. The universe responds to us in ways we often fail to recognize, yet the principle remains true: life reacts to our actions.</p>
+        <p>Consider human relationships. If we treat others with kindness, respect, and understanding, we are far more likely to receive the same in return. On the other hand, if we act with aggression, dishonesty, or selfishness, the world eventually mirrors that negativity back to us. This is not some mystical force at work; rather, it is the natural consequence of human interaction and emotional energy.</p>
+        <p>Actions also shape our personal growth. If someone dedicates time and effort to learning a new skill, the reaction will be improvement and expertise. If someone neglects their responsibilities, the reaction will be missed opportunities or failure. This principle is at the heart of discipline, success, and progress. Nothing happens without cause; every achievement and every setback is the result of previous actions.</p>
+        <p>Even on a larger scale, societies function based on this principle. Acts of kindness create a more compassionate world, while acts of destruction bring about chaos. The way we treat our planet, our communities, and ourselves determines the future we will experience.</p>
+        <h3 class="subsection-title">The Role of Entropy: Limited Time, Limited Energy</h3>
+        <p>In addition to Newton's laws, another fundamental principle of the universe influences our lives: entropy. Entropy, in simple terms, is the natural tendency of systems to move toward disorder unless energy is applied to maintain structure. In our daily lives, this translates to the reality that without effort, things fall apart—relationships deteriorate, skills fade, and opportunities vanish.</p>
+        <p>Every day, we wake up with a limited amount of energy and time. This energy can be used productively—to learn, to create, to build relationships—or it can be wasted on distractions, negativity, or inaction. Just like in physics, if we do nothing, entropy takes over, and disorder creeps in. Our minds become cluttered, our bodies grow weaker, and our lives drift away from our goals.</p>
+        <p>Understanding entropy in life means recognizing the importance of intentional effort. If we do not actively invest in our well-being, our knowledge, or our relationships, they will naturally degrade. Growth requires continuous input; without it, the reaction is decline. This principle is why discipline is so crucial—without conscious direction, life tends toward disorder.</p>
+        <p>The Theory of Life begins here: Everything we do matters. The universe is not indifferent to our choices. The reactions we receive are a direct result of the actions we put forward. But beyond that, we must also be aware of the silent force of entropy—the reality that our time and energy are finite, and if we do not use them wisely, they will slip away. To change our lives, we must first change our actions, and to sustain those changes, we must resist the pull of entropy with deliberate effort every single day.</p>
+      </article>
+    </section>
     
     <section id="relationships">
       <h2>Relationships</h2>
@@ -135,7 +191,7 @@
     </section>
     
     <section id="money">
-      <h2>Money & Material Wealth</h2>
+      <h2>Money &amp; Material Wealth</h2>
       <p>Content coming soon.</p>
     </section>
     
@@ -155,8 +211,22 @@
     </section>
   </div>
 
-  <!-- JavaScript for TOC highlighting -->
+  <!-- JavaScript for TOC toggling and highlighting -->
   <script>
+    // Toggle the mobile sidebar
+    const menuBtn = document.getElementById('menu-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const toc = document.getElementById('toc');
+
+    menuBtn && menuBtn.addEventListener('click', () => {
+      toc.classList.add('open');
+    });
+
+    closeBtn && closeBtn.addEventListener('click', () => {
+      toc.classList.remove('open');
+    });
+
+    // Intersection Observer for TOC highlighting
     const tocLinks = document.querySelectorAll('.toc a');
     const sections = Array.from(tocLinks).map(link => {
       const section = document.querySelector(link.getAttribute('href'));
